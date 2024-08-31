@@ -12,7 +12,7 @@ const fs = require("fs")
 const crypto = require("crypto")
 
 const port = 3000
-const rootdir = "http://192.168.20.148/"//"C:/Users/MBoes/OneDrive - K.S.G. De Breul/Informatica/website projecten/Website/"
+const rootdir = "https://online.maxcodeandgames.nl"//"C:/Users/MBoes/OneDrive - K.S.G. De Breul/Informatica/website projecten/Website/"
 const app = express()
 const server = http.createServer(app)
 
@@ -50,7 +50,7 @@ app.get("/", async (req, res) => {
     var user = await getUser(req.cookies)
     if(!user){
         // user = [{User: 19, Username: "Max100kaas", Password: "2ac46b4bf3564625ff490c4e3050da14", "Profile picture": 9}]
-        res.redirect(rootdir + "accounts/login.php?redirect=http://localhost:3000")
+        res.redirect(rootdir + "accounts/login.php?redirect=https://online.maxcodeandgames.nl")
         return
     }
     const username = user[0].Username
@@ -67,7 +67,7 @@ app.post("/", async (req, res) => {
     var user = await getUser(req.body)
     if(!user){
         // user = [{User: 19, Username: "Max100kaas", Password: "2ac46b4bf3564625ff490c4e3050da14", "Profile picture": 9}]
-        res.redirect(rootdir + "accounts/login.php?redirect=http://localhost:3000")
+        res.redirect(rootdir + "accounts/login.php?redirect=https://online.maxcodeandgames.nl")
         return
     }
     res.cookie("username", req.body.username, {maxAge: 86400 * 30 * 1000})
