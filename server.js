@@ -13,11 +13,9 @@ const crypto = require("crypto")
 require("dotenv").config()
 
 const port = 3000
-const rootdir = "https://maxcodeandgames.nl"//"C:/Users/MBoes/OneDrive - K.S.G. De Breul/Informatica/website projecten/Website/"
+const rootdir = "https://maxcodeandgames.nl/"//"C:/Users/MBoes/OneDrive - K.S.G. De Breul/Informatica/website projecten/Website/"
 const app = express()
 const server = http.createServer(app)
-
-console.log(process.env)
 
 const db = mysql.createPool({
     connectionLimit: 10,
@@ -55,7 +53,7 @@ app.get("/", async (req, res) => {
     var user = await getUser(req.cookies)
     if(!user){
         // user = [{User: 19, Username: "Max100kaas", Password: "2ac46b4bf3564625ff490c4e3050da14", "Profile picture": 9}]
-        res.redirect(rootdir + "accounts/login.php?redirect=https://online.maxcodeandgames.nl")
+        res.redirect(rootdir + "accounts/login.php?redirect=" + process.env.SERVER_URL)
         return
     }
     const username = user[0].Username
@@ -75,8 +73,8 @@ app.post("/", async (req, res) => {
         res.redirect(rootdir + "accounts/login.php?redirect=https://online.maxcodeandgames.nl")
         return
     }
-    res.cookie("username", req.body.username, {maxAge: 86400 * 30 * 1000})
-    res.cookie("password", req.body.password, {maxAge: 86400 * 30 * 1000})
+    res.cookie("username", req.body.username, {maxAge: 86400 * 30 * 1000, sameSite: "none", secure: true})
+    res.cookie("password", req.body.password, {maxAge: 86400 * 30 * 1000, sameSite: "none", secure: true})
     const username = user[0].Username
     var topbar = await getTopbar(user)
     var gmessages = await getMessages()
