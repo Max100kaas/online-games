@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="<%- rootdir %>files/website-files/newstyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <style>
+        body{
+            background-image: url("/files/icons/pattern.png"), linear-gradient(to bottom, #0d0d7a, #305080);
+            animation: backgroundpattern 5s infinite linear;
+        }
+    </style>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+</head>
+<body>
+    <%- topbar %>
+    <div id="main">
+        <div>
+            <h1 id="pageheader">Online</h1>
+            <div id="sidebar">
+                <h2>Games</h2>
+                <a href="/racing">Online racing game</a>
+            </div>
+        </div>
+        <div id="content">
+            <h1>Chat</h1>
+            <p>Recente chat wordt na 10 minuten of 15 berichten verwijderd, terwijl globale chat blijft staan</p>
+            <div class="horizontalselection">
+                <div>
+                    <div id="globalchat">Globale chat</div>
+                    <div id="recentchat">Recente chat</div>
+                </div>
+            </div>
+            <div id="gmessages" class="messages">
+                <%- gmessages %>
+            </div>
+            <div id="rmessages" class="messages" style="display: none;">
+                <%- rmessages %>
+            </div>
+            <div id="message">
+                <input id="messagecontent" placeholder="Typ hier je bericht">
+                <button id="sendmessage">Verzenden</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const username = '<%= username %>'
+        const socket = io('http://192.168.20.148:3000');
+        var chat = "g"
+        var inputfocus = false
+        document.getElementById("messagecontent").onfocus = () => {inputfocus = true}
+        document.getElementById("messagecontent").onblur = () => {inputfocus = false}
+        document.getElementById("globalchat").onclick = () => {
+            document.getElementById("rmessages").style.display = "none"
+            document.getElementById("gmessages").style.display = "block"
+            document.getElementsByClassName("horizontalselection")[0].classList = "horizontalselection"
+            chat = "g"
+        }
+        document.getElementById("recentchat").onclick = () => {
+            document.getElementById("gmessages").style.display = "none"
+            document.getElementById("rmessages").style.display = "block"
+            document.getElementsByClassName("horizontalselection")[0].classList = "horizontalselection aftertoright"
+            chat = "r"
+        }
+        document.getElementById("sendmessage").onclick = () => {
+            if(document.getElementById("messagecontent").value != ""){
+                socket.emit("NewMessage", username, document.getElementById("messagecontent").value, chat)
+                document.getElementById("messagecontent").value = ""
+            }
+        }
+        addEventListener("keypress", (e) => {
+            if(e.key == "Enter" && inputfocus && document.getElementById("messagecontent").value != ""){
+                socket.emit("NewMessage", username, document.getElementById("messagecontent").value, chat)
+                document.getElementById("messagecontent").value = ""
+            }
+        })
+
+        socket.on("NewMessage", (message, c) => {
+            if(c == "r"){
+                document.getElementById("rmessages").innerHTML = message
+            }
+            if(c == "g"){
+                document.getElementById("gmessages").innerHTML += message
+            }
+        })
+    </script>
+</body>
+</html>

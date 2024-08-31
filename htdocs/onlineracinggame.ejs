@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Racing game</title>
+    <style>
+        #desc{
+            width: 600px;
+            margin-left: 5px;
+        }
+        #scoreboard{
+            width: 300px;
+            min-height: 300px;
+            border: 1px solid white;
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 2px;
+            border-radius: 5px;
+            color: white;
+        }
+        #canvascontainer{
+            display: contents;
+        }
+        canvas{
+            margin-top: 2px;
+            border-radius: 5px;
+        }
+        #menu{
+            position: absolute;
+            top: 100px;
+            left: 50px;
+            width: 700px;
+            height: 500px;
+            border-radius: 30px;
+            background-color: #88ccff;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #menu p{
+            color: black;
+            display: contents;
+        }
+        #menu select{
+            margin-top: 30px;
+        }
+        #menu button{
+            margin-top: auto;
+            margin-bottom: 40px;
+            width: 150px;
+            height: 50px;
+            border-radius: 25px;
+            background-color: lightgreen;
+            border: none;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .menuplayer{
+            width: 200px;
+            height: 50px;
+            background-color: #4444ee;
+            margin-top: 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            font-family: 'Segoe UI', Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #chat{
+            flex: 1;
+        }
+        h3{
+            color: white;
+            font-family: 'Segoe UI', Verdana, sans-serif;
+        }
+    </style>
+    <style>
+        body{
+            background-image: url("/files/icons/pattern.png"), linear-gradient(to bottom, #0d0d7a, #305080);
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="<%- rootdir %>files/website-files/newstyle.css">
+    <link rel="icon" href="/favicon.ico">
+    <script src="<%- rootdir %>files/website-files/ajax.js"></script>
+    <!-- <script src="ajax.js"></script> -->
+</head>
+<body>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <!-- <script src="/socket.io/socket.io.js"></script> -->
+
+    <%- topbar %>
+    <div style="display: flex;">
+        <span id="canvascontainer"></span>
+        <div id="menu">
+            <h2>Welkom bij mijn racegame!</h2>
+            <p>Selecteer eerst een kleur</p>
+            <select id="colorselect">
+                <option id="red">Red</option>
+            </select>
+            <button id="startgame">Start</button>
+            <h3 id="gamealreadystarted" style="display: none;">Game is al begonnen, wacht tot de volgende ronde</h3>
+        </div>
+        <div id="gameconfig">
+            <h2>Opties</h2>
+            <p>Moeilijkheid: </p>
+            <div>
+                <input type="radio" name="Difficulty" id="50cc">
+                <label style="background-color: rgb(16, 190, 16);" for="50cc">50cc</label>
+
+                <input type="radio" name="Difficulty" id="100cc" checked="checked">
+                <label style="background-color: rgb(249, 219, 26);" for="100cc">100cc</label>
+
+                <input type="radio" name="Difficulty" id="150cc">
+                <label style="background-color: rgb(226, 3, 3);" for="150cc">150cc</label>
+
+                <input type="radio" name="Difficulty" id="200cc">
+                <label style="background-color: rgb(166, 5, 169);" for="200cc">200cc</label>
+            </div>
+            <p>Achterstandsboost: </p>
+            <div>
+                <input type="radio" name="Achterstandsboost" id="Veel">
+                <label style="background-color: rgb(16, 190, 16);" for="Veel">Veel</label>
+
+                <input type="radio" name="Achterstandsboost" id="Normaal" checked="checked">
+                <label style="background-color: rgb(249, 219, 26);" for="Normaal">Normaal</label>
+
+                <input type="radio" name="Achterstandsboost" id="Weinig">
+                <label style="background-color: rgb(226, 3, 3);" for="Weinig">Weinig</label>
+
+                <input type="radio" name="Achterstandsboost" id="Geen">
+                <label style="background-color: rgb(166, 5, 169);" for="Geen">Geen</label>
+            </div>
+            <h2>Chat</h2>
+            <div id="chat"></div>
+            <div id="message">
+                <input id="messagecontent" placeholder="Typ hier je bericht">
+                <button id="sendmessage">Verzenden</button>
+            </div>
+        </div>
+    </div>
+    <p id="desc">Gebruik pijltjestoetsen om te besturen en E om te boosten. Als je boost ben je sneller en kun je door
+        het gras om shortcuts te nemen. Gebruik Q om een powerup te gebruiken.
+    </p>
+    <script>
+        const USERNAME = '<%- username %>';
+        const ROOTDIR = '<%- rootdir %>'
+    </script>
+    <script src="/htdocs/js/racinggame.js"></script>
+</body>
+</html>

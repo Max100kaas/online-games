@@ -1,0 +1,21 @@
+    const cookies = "username=Max100kaas; password=2ac46b4bf3564625ff490c4e3050da14"
+    var cookieobj = req.cookies
+    var cookiekeys = Object.keys(cookieobj)
+    var cookies = "" 
+    for(var i = 0; i < cookiekeys.length; i++){
+        cookies += cookiekeys[i] + "=" + cookieobj[cookiekeys[i]] + ";"
+    }
+    //cookies = cookies.substring(0, cookies.length - 1)
+    axios.get("http://localhost:80/games/Racing-game/index.php", {
+        withCredentials: true,
+        headers: {
+            Cookie: cookies
+        }
+    }).then(response => {
+        var data = response.data
+        data = data.replace("index.js", "../indexonline.js")
+        res.send(data)
+    })
+    res.sendFile(rootdir + "games/Racing-game/index.php")
+    const cors = require("cors")
+    const axios = require("axios").default
