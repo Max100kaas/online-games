@@ -10,13 +10,14 @@ const cors = require("cors");
 const { connect } = require("http2");
 const fs = require("fs")
 const crypto = require("crypto")
+require("dotenv").config()
 
 const port = 3000
 const rootdir = "https://maxcodeandgames.nl"//"C:/Users/MBoes/OneDrive - K.S.G. De Breul/Informatica/website projecten/Website/"
 const app = express()
 const server = http.createServer(app)
 
-console.log(process.env.DBPASSWORD)
+console.log(process.env)
 
 const db = mysql.createPool({
     connectionLimit: 10,
