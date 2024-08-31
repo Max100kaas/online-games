@@ -18,8 +18,9 @@ const server = http.createServer(app)
 
 const db = mysql.createPool({
     connectionLimit: 10,
-    host: 'localhost',
-    user: 'root',
+    host: 'https://maxcodeandgames.nl',
+    user: 'Maxcodeandgames',
+    password: process.env.DBPASSWORD,
     database: 'Maxcodeandgames',
     charset: 'utf8mb4'
 });
