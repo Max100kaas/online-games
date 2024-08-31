@@ -18,7 +18,8 @@ const server = http.createServer(app)
 
 const db = mysql.createPool({
     connectionLimit: 10,
-    host: 'https://maxcodeandgames.nl:3306/',
+    host: 'https://maxcodeandgames.nl/',
+    port: 3306,
     user: 'Maxcodeandgames',
     password: process.env.DBPASSWORD,
     database: 'Maxcodeandgames',
