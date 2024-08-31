@@ -12,7 +12,7 @@ const fs = require("fs")
 const crypto = require("crypto")
 
 const port = 3000
-const rootdir = "https://online.maxcodeandgames.nl"//"C:/Users/MBoes/OneDrive - K.S.G. De Breul/Informatica/website projecten/Website/"
+const rootdir = "https://maxcodeandgames.nl"//"C:/Users/MBoes/OneDrive - K.S.G. De Breul/Informatica/website projecten/Website/"
 const app = express()
 const server = http.createServer(app)
 
