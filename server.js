@@ -16,6 +16,8 @@ const rootdir = "https://maxcodeandgames.nl"//"C:/Users/MBoes/OneDrive - K.S.G. 
 const app = express()
 const server = http.createServer(app)
 
+console.log(process.env.DBPASSWORD)
+
 const db = mysql.createPool({
     connectionLimit: 10,
     host: 'maxcodeandgames.nl',
