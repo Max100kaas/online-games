@@ -34,7 +34,7 @@ addEventListener("keypress", (e) => {
 
 //const main = (function() {
     var players = {}
-    const socket = io('http://192.168.20.148:3000', {
+    const socket = io('/', {
         path: "//racing"
     });
     // const socket = io();
