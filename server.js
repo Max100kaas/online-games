@@ -12,7 +12,7 @@ const fs = require("fs")
 const crypto = require("crypto")
 require("dotenv").config()
 
-const port = 80
+const port = 443
 const rootdir = "https://maxcodeandgames.nl/"//"C:/Users/MBoes/OneDrive - K.S.G. De Breul/Informatica/website projecten/Website/"
 const app = express()
 const server = http.createServer(app)
