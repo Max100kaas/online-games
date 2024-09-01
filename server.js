@@ -11,6 +11,7 @@ const { connect } = require("http2");
 const fs = require("fs")
 const crypto = require("crypto")
 require("dotenv").config()
+const iconv = require("iconv-lite")
 
 const port = 3000
 const rootdir = "https://maxcodeandgames.nl/"//"C:/Users/MBoes/OneDrive - K.S.G. De Breul/Informatica/website projecten/Website/"
@@ -138,7 +139,8 @@ server.listen(port, () => {
             if(chat == "g"){
                 var user = await query("SELECT User FROM inloggegevens WHERE Username = '" + username + "'")
                 if(user.length == 1){
-                    await query("INSERT INTO chat VALUES (null, " + user[0].User + ", '" + message + "')")
+                    var encodedMessage = iconv.encode(message, 'utf-8').toString("latin1")
+                    await query("INSERT INTO chat VALUES (null, " + user[0].User + ", '" + encodedMessage + "')")
                     messageio.emit("NewMessage", newmessage, chat)
                 }
             }

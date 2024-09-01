@@ -1,6 +1,9 @@
 async function getMessages(){
     var connection = await dbconnect()
     var messages = await query("SELECT * FROM chat")
+    for(var i = 0; i < messages.length; i++){
+        messages[i].Message = iconv.decode(iconv.encode(messages[i].Message, "latin1"), "utf-8")
+    }
     var renderedmessages = ""
     for(var i = 0; i < messages.length; i++){
         if(messages[i].User != 0){
