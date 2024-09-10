@@ -8,6 +8,9 @@ async function getMessages(){
     for(var i = 0; i < messages.length; i++){
         if(messages[i].User != 0){
             var msguser = await query("SELECT * FROM inloggegevens WHERE User = " + messages[i].User)
+            if(msguser.length == 0){
+                msguser = [{User: 0, Username: "Anoniem", "Profile picture": 0}]
+            }
         }
         else{
             var msguser = [{User: 0, Username: "Anoniem", "Profile picture": 0}]
